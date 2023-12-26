@@ -1,0 +1,149 @@
+Episode - 14:
+
+1. Project Ka naam hai Netflix GPT : Jo bhi features honge vo mein top par likh dunga. 
+Features :
+
+
+
+
+
+
+2. a) create-react-app use karenge project set up karne ke liye, mujhe basically ek scaffold mil gaya hai. 
+Command hai npx create-react-app netflix-gpt
+
+b) Ab isse open kar lo VS Code mein, aur run kar do npm run start. 
+c) Ab hum configure karenge Tailwind, Tailwind CSS ki site open karo, GetStarted par jaao, aur fir Frameworks, vahan se select kar lo create-react-app
+Fir kucch commands hai Tailwind ki vo run karni hai, aur configuration file mein changes kar lo.
+
+3. a) Git par new repo create kari hai, netflix-gpt, aur kucch commands thi, vo copy karke unhe run kar diya VS Code mein aur fir change commit karein hain. 
+b) react-router-dom install kari hai, command hai npm install -D react-router-dom
+c) Ab kucch components create karte hain. rafce(React Arrow Function Component Export) ki madad se, Login.js, Header.js, Browser.js, Body.js 
+App.js ko completely empty kar diya hai aur vahan use kar rahe hain Body component ko. 
+
+4. Code Eg:
+
+a) Body.js 
+
+import React from 'react'
+import Login from './Login'
+import Browse from './Browse'
+
+const Body = () => {
+  return (
+    <div>
+        <Login />
+        <Browse />
+    </div>
+  )
+}
+
+export default Body
+
+b) Login.js
+
+import React from 'react'
+
+const Login = () => {
+  return (
+    <div>Login</div>
+  )
+}
+
+export default Login
+
+
+c) Header.js
+
+import React from 'react'
+
+const Header = () => {
+  return (
+    <div>Header</div>
+  )
+}
+
+export default Header
+
+d) Browse.js 
+
+import React from 'react'
+
+const Browse = () => {
+  return (
+    <div>Browse</div>
+  )
+}
+
+export default Browse
+
+
+5. a) Ab configuration matlab ki route add karenge, Body.js mein 
+
+Code Eg :
+
+import React from "react";
+import Login from "./Login";
+import Browse from "./Browse";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const Body = () => {
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
+    },
+  ]);
+  return (
+    <div>
+      {/* <Login /> */}
+      {/* <Browse /> */}
+      <RouterProvider router={appRouter}/>
+    </div>
+  );
+};
+
+export default Body;
+
+
+Explanation :
+a) Mein application ka route bana raha hun, function use kiya hai createBrowserRouter(), argument jo aapko pass karna hai vo hai basically array of objects. 
+b) To har object mein path aur uska corresponding Component jo humein daalna hai vo daal do. 
+Jaise ki Home page par, Login component, aur jab hum browse par navigate karenge to Browse component render karo. 
+
+c) Hum aise bhi kar sakte hain ki ek Homepage component hai, aur pehle homepage aa gaya, fir vahan par jab aap login par click karoge to url mein hoga /login aur fir login component aayega. 
+
+Eg :
+Homepage.js
+
+import React from 'react'
+
+const HomePage = () => {
+  return (
+    <div>HomePage</div>
+  )
+}
+
+export default HomePage
+
+Body.js mein appRouter kucch aisa hoga, 
+
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/browse",
+      element: <Browse />,
+    },
+  ]);
+  
+Par abhi ke liye hum yeh nahi kar rahe hain. 

@@ -1,0 +1,183 @@
+Episode - 14 :Part - 2
+
+1. Header.js
+
+Code Eg :
+
+import React from "react";
+
+const Header = () => {
+    console.log("Header");
+  return (
+    <div className="absolute px-8 py-2 bg-gradient-to-b from-black">
+      <img
+      className="w-44"
+        src="https://www.shutterstock.com/image-vector/netflix-logo-popular-american-streaming-260nw-2308205585.jpg"
+        alt="header_logo"
+      />
+    </div>
+  );
+};
+
+export default Header;
+
+
+Explanation :
+a) Logo ki image ka link daala hai, aur uss logo ki image ko ek specific width di hai w-44
+b) Ab mujhe iss image ko overlap karvaana tha, background image par, isiliye diya hai absolute, aur x-axis ke along padding, aur y-axis ke along different padding. 
+c) gradient ke baare mein padho. aur absolute hatakar check karo. 
+
+
+2. Login.js 
+
+import React, { useState } from "react";
+import Header from "./Header";
+
+const Login = () => {
+
+    const[isSignInForm, setIsSignInForm] = useState();
+    const toggleSignInForm = () => {
+
+    }
+  return (
+    <div>
+      <Header />
+      <div className="absolute">
+        <img
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/563192ea-ac0e-4906-a865-ba9899ffafad/6b2842d1-2339-4f08-84f6-148e9fcbe01b/IN-en-20231218-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
+          alt="background_logo"
+        />
+      </div>
+      <form className="w-3/12 absolute bg-black p-12 my-36 mx-auto left-0 right-0 rounded-lg opacity-80">
+        <h1 className="font-bold text-3xl text-white py-4">Sign In</h1>
+        <input
+          type="text"
+          placeholder="Email Address"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />
+        <button className="p-2 my-6 text-white bg-red-700 w-full rounded-lg">
+          Sign In
+        </button>
+        <p className="py-4 text-white" onClick={toggleSignInForm}>New to Netflix? Sign up now.</p>
+      </form>
+    </div>
+  );
+};
+
+
+Explanation :
+a) Login component mera home page hai, tabhi path mein "/" diya tha. 
+b) Pehle header component render karunga. 
+c) Fir background ki image daali hai, isse bhi diya hai absolute, kyunki logo jo header mein hai usse overlap karvaana hai iss bg-image ke saath. 
+d) Image ko humesha div ke andar daalo, control karna asaan rahega. 
+e) Fir create kiya hai Sign In form. Ek h1 hai jisme Sign In likha hai, 2 input tags hai jinke placeholder hain Email Address aur password respectively. 
+Aur type diya hai ek ko text aur ek ko password. 
+f) Ab iss form ko center mein laane ke liye, form ko width di hai w-3/12, aur absolute he rakha hai, aur along y-axis margin diya hai. 
+
+g) Button hai sign in ka, aur nicche ek p tag hai jisme hum new users ko pucch rahe hain. 
+
+
+
+
+3. a)Ab maan lo new user hua, to vo click kar paaye text par aur yehi form convert ho jaaye Sign Up mein. To hum onClick lagayenge, aur handler ka naam hai toggleSignInForm. 
+Fir function create kiya hai, toggleSignInForm, ab UI re-render hona chahiye iske click par, matlab humein ek state variable maintain karna padega. Kyu?
+
+b) Logic kya hai? Mein ek variable banaunga, agar uski value true hai to Sign In form dikhaao, agar false hai to Sign Up Form dikhaao. 
+Basically, ek boolean variable se decide karenge. Par local variable se UI thode he re-render hoga, uske liye local state variable banana padega. 
+
+c) Isiliye use kiya hai useState(). To jab bhi aapko toggle ka koi feature banana hai, matlab agar ek variable ki value true hai, to yeh karo, false hai to yeh karo.
+Uske liye useState use karenge, yahan par maine isSignInForm state variable ko initial value di hai true, to pehle Sign In form aayega. 
+Agar main text par click kiya, to Sign Up Form aayega, kaise maine setIsSignInForm mein pass kiya hai negate of isSignInForm. 
+
+Matlab initial value true, agar click hua to False, fir se click hua to true.
+
+d) Ab maine conditions add kar di hain, jaise heading ke liye :
+{isSignInForm ? "Sign In" : "Sign Up"}
+Agar true hai to heading Sign In hai varna Sign Up hai 
+
+
+Agar Sign Up form hai to ek extra field dikhaao, Full Name ki, isiliye daala hai, !isSignInForm
+
+{!isSignInForm && <input
+          type="text"
+          placeholder="Full Name"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />}
+
+
+To nicche vaale text ko bhi Sign In or Sign Up form ke basis par control karunga. 
+        <p
+          className="py-4 text-white cursor-pointer"
+          onClick={toggleSignInForm}
+        >
+          {isSignInForm
+            ? "New to Netflix? Sign up now."
+            : "Already Registered? Sign In now."}
+        </p>
+		
+		
+
+e)  
+Code Eg :
+
+
+import React, { useState } from "react";
+import Header from "./Header";
+
+const Login = () => {
+  const [isSignInForm, setIsSignInForm] = useState(true);
+  const toggleSignInForm = () => {
+    setIsSignInForm(!isSignInForm);
+  };
+  return (
+    <div>
+      <Header />
+      <div className="absolute">
+        <img
+          src="https://assets.nflxext.com/ffe/siteui/vlv3/563192ea-ac0e-4906-a865-ba9899ffafad/6b2842d1-2339-4f08-84f6-148e9fcbe01b/IN-en-20231218-popsignuptwoweeks-perspective_alpha_website_medium.jpg"
+          alt="background_logo"
+        />
+      </div>
+      <form className="w-3/12 absolute bg-black p-12 my-36 mx-auto left-0 right-0 rounded-lg opacity-80">
+        <h1 className="font-bold text-3xl text-white py-4">
+          {isSignInForm ? "Sign In" : "Sign Up"}
+        </h1>
+        {!isSignInForm && <input
+          type="text"
+          placeholder="Full Name"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />}
+        <input
+          type="text"
+          placeholder="Email Address"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="p-2 my-4 w-full bg-gray-700 rounded-lg"
+        />
+        <button className="p-2 my-6 text-white bg-red-700 w-full rounded-lg">
+          {isSignInForm ? "Sign In" : "Sign Up"}
+        </button>
+        <p
+          className="py-4 text-white cursor-pointer"
+          onClick={toggleSignInForm}
+        >
+          {isSignInForm
+            ? "New to Netflix? Sign up now."
+            : "Already Registered? Sign In now."}
+        </p>
+      </form>
+    </div>
+  );
+};
+
+export default Login;
+
+export default Login;
